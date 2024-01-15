@@ -69,6 +69,8 @@ This school project revolves around creating a Highly Available AWS environment 
  
 <h2>Task 3: Creating an Auto Scaling Group</h2>
 
+<h2>Create an AMI for Auto Scaling </h2>
+
 1. In the AWS Management Console, on the Services  menu, choose EC2.
 2. In the left navigation pane, choose Instances.
 3. Wait until the Status check for Web Server 1 displays 2/2 checks passed. Choose refresh to update.
@@ -136,6 +138,11 @@ This school project revolves around creating a Highly Available AWS environment 
     - Review the details of your Auto Scaling group
     - At the bottom of the page, choose Create Auto Scaling group
     - Your Auto Scaling group will initially show an instance count of zero, but new instances will be launched to reach the Desired count of 2 instances.
+   
+<p align="center">
+<br/>
+<img src="https://i.imgur.com/vc17OjF.png"/>
+
 
 <h2>Task 4: Updating Security Groups</h2> 
 
@@ -169,3 +176,32 @@ This school project revolves around creating a Highly Available AWS environment 
 <p align="center">
 <br/>
 <img src="https://i.imgur.com/uAZTqKh.png"/>
+
+<h2>Task 5: Testing the application</h2> 
+
+1. In the left navigation pane, choose Target Groups.
+2. Select  Inventory-App.
+3. In the lower half of the page, choose the Targets tab.
+4. In the Registered targets area, occasionally choose the  refresh icon until the Status for both instances appears as healthy.
+5. In the left navigation pane, choose Load Balancers and then choose Inventory-LB.
+6. In the Details tab in the lower half of the window, copy the **DNS name** to your clipboard.
+7. Open a new web browser tab, paste the DNS name from your clipboard and press ENTER.
+8. Reload  the page in your web browser. You should notice that the instance ID and Availability Zone sometimes toggles between the two instances.
+
+<p align="center">
+<br/>
+<img src="https://i.imgur.com/7UBdh52.png"/>
+
+<h2>Task 6: Testing the application</h2>
+
+1. Return to the EC2 console tab in your web browser.
+2. In the left navigation pane, choose Instances.
+3. Select  one of the Inventory-App instances.
+4. Choose Instance State > Terminate instance.
+5. Choose Terminate.
+6. Return to the web application tab in your web browser and reload  the page several times. In a short time, the load balancer health checks will notice that the instance is not responding. The load balancer will automatically route all requests to the remaining instance.
+7. Return to the EC2 console tab where you have the instances list displayed. In the top-right area, choose the  refresh icon every 30 seconds or so until a new EC2 instance appears
+
+<p align="center">
+<br/>
+<img src="https://i.imgur.com/YVYrV0r.png"/>
