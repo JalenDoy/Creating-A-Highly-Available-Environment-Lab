@@ -126,3 +126,46 @@ This school project revolves around creating a Highly Available AWS environment 
     - Maximum capacity: 2
     - Under Scaling policies, choose None 
     - Choose Next
+11. Configure the details in Step 5 (Add notifications - optional):
+    - Choose Next
+12. Configure the details in Step 6 (Add Tags - optional)
+    - Key: Name
+    - Value: Inventory-App
+    - Choose Next
+13. Configure the details in Step 6 (Review):
+    - Review the details of your Auto Scaling group
+    - At the bottom of the page, choose Create Auto Scaling group
+    - Your Auto Scaling group will initially show an instance count of zero, but new instances will be launched to reach the Desired count of 2 instances.
+
+<h2>Task 4: Updating Security Groups</h2> 
+
+1. In the left navigation pane, choose Security Groups.
+2. Select  Inventory-App.
+3. In the lower half of the page, choose the Inbound rules tab
+4. Choose Edit inbound rules.
+5. On the Edit inbound rules page, choose Add rule and configure these settings:
+    - Type: HTTP
+    - Source:
+        - Choose the search box to the right of Custom
+        - Delete the current contents
+        - Enter sg
+        - From the list that appears, select Inventory-LB
+    - Description: Traffic from load balancer
+    - Choose Save rules
+
+<h2>Database Security Group</h2> 
+
+1. In the Security groups list, choose  Inventory-DB (and make sure that no other security groups are selected)
+2. In the Inbound rules tab, choose Edit inbound rules and configure these settings:
+    - Delete the existing rule.
+    - Choose Add rule.
+    - For Type, choose MYSQL/Aurora
+    - Choose the search box to the right of Custom
+    - Enter sg
+    - From the list that appears, select Inventory-App
+    - Description: Traffic from application servers
+    - Choose Save rules
+
+<p align="center">
+<br/>
+<img src="https://i.imgur.com/uAZTqKh.png"/>
