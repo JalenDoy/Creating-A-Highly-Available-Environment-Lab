@@ -67,3 +67,62 @@ This school project revolves around creating a Highly Available AWS environment 
 <br/>
 <img src="https://i.imgur.com/kdGGlp8.png"/>
  
+<h2>Task 3: Creating an Auto Scaling Group</h2>
+
+1. In the AWS Management Console, on the Services  menu, choose EC2.
+2. In the left navigation pane, choose Instances.
+3. Wait until the Status check for Web Server 1 displays 2/2 checks passed. Choose refresh to update.
+4.Select  Web Server 1.
+5. In the Actions  menu, choose Image and templates > Create image, then configure:
+    - Image name: Web Server AMI
+    - Image description: Lab AMI for Web Server
+6. Choose Create image
+
+<h2>Create a Launch Template and an Auto Scaling Group</h2>
+
+1. In the left navigation pane, choose Launch Templates.
+2. Choose Create launch template
+3. Configure the launch template settings and create it:
+    - Launch template name: Inventory-LT
+    - Under Auto Scaling guidance, select  Provide guidance to help me set up a template that I can use with EC2 Auto Scaling
+    - In the Application and OS Images (Amazon Machine Image) area, choose My AMIs.
+    - Amazon Machine Image (AMI): choose Web Server AMI
+    -  Instance type: choose t2.micro
+    - Key pair name: choose vockey
+    - Firewall (security groups): choose Select existing security group
+    - Security groups: choose   Inventory-App
+    - Scroll down to the Advanced details area and expand it.
+    - IAM instance profile: choose Inventory-App-Role
+    - Scroll down to the Detailed CloudWatch monitoring setting. Select  Enable Note: This will allow Auto Scaling to react quickly to changing utilization.
+    - Under User data, paste in the script below:
+
+<p align="center">
+<br/>
+<img src="https://i.imgur.com/40BNKis.png"/>
+
+4. Choose Create launch template
+5. In the Success dialog, choose the Inventory-LT launch template.
+6. From the Actions menu, choose Create Auto Scaling group
+7. Configure the details in Step 1 (Choose launch template or configuration):
+    - Auto Scaling group name:  Inventory-ASG (ASG stands for Auto Scaling group)
+    - Launch template: confirm that the Inventory-LT template you just created is selected.
+    - Choose Next
+8. Configure the details in Step 2 (Choose instance launch options):
+    - VPC: choose Lab VPC
+    - Availability Zones and subnets: Choose Private Subnet 1 and then choose Private Subnet 2.  
+    - Choose Next
+9. Configure the details in Step 3 (Configure advanced options):
+    - In the Load balancing panel:
+    - Choose Attach to an existing load balancer
+    - Existing load balancer target groups: select Inventory-App.
+    - In the Health checks panel:  Health check grace period: 90 seconds
+    - In the Additional settings panel: Select  Enable group metrics collection within CloudWatch
+    - This will capture metrics at 1-minute intervals, which allows Auto Scaling to react quickly to changing usage patterns.
+    - Choose Next  
+10. Configure the details in Step 4 (Configure group size and scaling policies - optional):
+    - Under Group size, configure: 
+    - Desired capacity: 2
+    - Minimum capacity: 2
+    - Maximum capacity: 2
+    - Under Scaling policies, choose None 
+    - Choose Next
